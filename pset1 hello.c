@@ -6,8 +6,7 @@
     CS50x 2020 Problem Set 1 hello.c
 
     Link to the  Problem Set
-    https://cs50.harvard.edu/x/2020/psets/1/hello/#:~:text=pset1
-*/
+    https://cs50.harvard.edu/x/2020/psets/1/hello/#:~:text=pset1  */
 
 #include <stdio.h>
 #include <cs50.h> /* include cs50.h */
