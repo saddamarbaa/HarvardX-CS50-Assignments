@@ -25,7 +25,7 @@ long get_Length(long);
 
 int main(int argc, char *argv[]) /* the river Code */
 {
-    long long ueserInput = 0; // Declare and initialize a variable
+    long long ueserInput = 0; //  Declare and initialize a variable
 
     do // asking user to input credit card number
     {
