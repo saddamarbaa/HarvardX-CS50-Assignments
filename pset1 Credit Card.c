@@ -1,5 +1,5 @@
 /**
-    [PROGRAM] :  Credit (Luhn’s Algorithm)
+    [PROGRAM] :  Credit Card Validation (Luhn’s Algorithm)
     [AUTHOR]  :  Saddam Arbaa
     [Email]   :  <saddamarbaas@gmail.com>
 
