@@ -1,4 +1,3 @@
-
 /**
     [PROGRAM] :  Super Mario Brothers,
     [AUTHOR]  :  Saddam Arbaa
@@ -12,7 +11,7 @@
 #include <stdio.h>
 #include <cs50.h> /* include cs50.h */
 
-// function to positive integer
+// function to get positive integer
 int get_positive_int(void);
 
 int main(int argc, char *argv[]) /* the river Code */
