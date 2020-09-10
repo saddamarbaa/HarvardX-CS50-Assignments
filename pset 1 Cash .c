@@ -4,6 +4,10 @@
     [Email]   :  <saddamarbaas@gmail.com>
 
     CS50X 2020 Problem Set 1 Cash Program Implementation
+    
+    Link to the Week 1 lecture
+    CS50 2019 - Lecture 1 - C
+    https://youtu.be/e9Eds2Rc_x8
 
     Link to the  Problem Set
     https://cs50.harvard.edu/x/2020/psets/1/cash/#:~:text=Cash  */
