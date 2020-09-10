@@ -9,6 +9,10 @@
     each letter by k positions
     ci = (pi + k) % 26
     and k is a secret key a non-negative integer
+    
+    Link to the Week 1 lecture
+    CS50 2019 - Lecture 1 - C
+    https://youtu.be/e9Eds2Rc_x8
 
     Link to the  Problem Set
     https://cs50.harvard.edu/x/2020/psets/2/caesar/#:~:text=a%20program%20that%20encrypts%20messages%20using%20Caesar%E2%80%99s%20cipher */
