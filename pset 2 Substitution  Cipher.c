@@ -11,6 +11,7 @@
     contain repeated  charterers .
     
     Link to the Week 2 lecture
+    CS50 2019 - Lecture 2 - Arrays
     https://youtu.be/8PrOp9t0PyQ
 
     Link to the  Problem Set
