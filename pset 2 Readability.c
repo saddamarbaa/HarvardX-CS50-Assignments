@@ -5,6 +5,10 @@
    
     CS50X 2020 Problem Set 2 Readability Implementation
     (a program that computes the approximate grade level needed to comprehend some text)
+    
+    Link to the Week 2 lecture
+    CS50 2019 - Lecture 2 - Arrays
+    https://youtu.be/8PrOp9t0PyQ
 
     Link to the  Problem Set
     https://cs50.harvard.edu/x/2020/psets/2/readability/#:~:text=Readability */
