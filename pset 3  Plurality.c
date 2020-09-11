@@ -18,7 +18,7 @@
 #include <cs50.h>    /* include cs50.h  Header file */
 #include <string.h>  /* include string.h Header file */
 
-// Max number of candidates the election
+// maximum number of candidates in the election
 #define MAX 9
 
 /* Struct to represent Candidates for storing their informations
@@ -37,11 +37,10 @@ int candidate_count;
 
 /* blow are the Functions prototypes */
 
-/* function to Print the winner(or winners)
-   of the election */
+/* function to Update vote */
 bool vote(string name);
 
-/* function to Update vote */
+/* function to Print the winner(or winners) of the election */
 void print_winner(void);
 
 int main(int argc, string argv[])    /* the river Code */
