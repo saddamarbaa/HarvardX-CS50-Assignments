@@ -133,6 +133,7 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
 
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
+    /* variable declarations */
     int i, j, Red, Green, Blue;
 
     for (i = 0; i < height; i++)
@@ -171,6 +172,8 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 {
     RGBTRIPLE copyimage[height][width]; // Gets mirror image to work on
 
+    /* variable declarations */
+    
     int i, j, Red, Green, Blue, counter;
 
     float newRed, newGreen, newBlue;
@@ -216,7 +219,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     }
                 }
             }
-            /* set the new value back to original image */
+            // assign the final value from the copy image back to original image
             image[i][j].rgbtRed = round(newRed / counter);
             image[i][j].rgbtGreen = round(newGreen / counter);
             image[i][j].rgbtBlue = round(newBlue / counter);
