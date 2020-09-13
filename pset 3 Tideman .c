@@ -1,5 +1,3 @@
-
- 
 #include <stdio.h>
 #include <string.h>  /* include string.h Header file */
 #include <cs50.h>    /* include cs50.h  Header file */
@@ -127,6 +125,7 @@ bool vote(int rank, string name, int ranks[])
 // Update preferences given one voter's ranks
 void record_preferences(int ranks[])
 {
+
     // iterate throw the candidate array
     for (int i = 0; i < candidate_count; i++)
     {
@@ -135,17 +134,41 @@ void record_preferences(int ranks[])
             preferences[ranks[i]][ranks[j]]++; // Update preferences
         }
     }
+
+
 } /** End of record_preferences() */
-
-
 
 
 // Record pairs of candidates where one is preferred over the other
 void add_pairs(void)
 {
-    // TODO
-    return;
-}
+    // iterate throw the candidate array
+    for (int i = 0; i < candidate_count; i++)
+    {
+        for (int j = i + 1; j < candidate_count; j++)
+        {
+           if(preferences[i][j] > preferences[j][i])
+           {
+               /* add pairs of candidates */
+               pairs[pair_count].winner = i;
+               pairs[pair_count].loser = j;
+               pair_count++; /* increment pair count by one */
+           }
+           else if(preferences[i][j] < preferences[j][i])
+           {
+               /* add pairs of candidates */
+               pairs[pair_count].winner = j;
+               pairs[pair_count].loser = i;
+               pair_count++; /* increment pair count by one */
+           }
+           /* in else cases mean
+           (preferences[i][j] == preferences[j][i])
+            in that case do nothing */
+        }
+    }
+    
+}/** End of add_pairs () */
+
 
 // Sort pairs in decreasing order by strength of victory
 void sort_pairs(void)
