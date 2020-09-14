@@ -135,7 +135,6 @@ void record_preferences(int ranks[])
         }
     }
 
-
 } /** End of record_preferences() */
 
 
@@ -166,16 +165,37 @@ void add_pairs(void)
             in that case do nothing */
         }
     }
-    
 }/** End of add_pairs () */
 
 
 // Sort pairs in decreasing order by strength of victory
 void sort_pairs(void)
 {
-    // TODO
-    return;
-}
+    int i, j;    // i,j are counters
+
+    // run two  loops : one for walking through the array
+    // and the other for comparison
+    for (i = 0; i < pair_count - 1; i++)
+    {
+        // inner loop for comparison
+        for (j = i + 1; j < pair_count; j++)
+        {
+            if(preferences[pairs[i].winner][pairs[i].loser] < preferences[pairs[j].winner][pairs[j].loser])
+            {
+                // if so swap them
+                int temp_winner = pairs[j].winner;
+                int temp_loser = pairs[j].loser;
+                pairs[j].winner = pairs[i].winner;
+                pairs[j].loser = pairs[i].loser;
+                pairs[i].winner = temp_winner;
+                pairs[i].loser = temp_loser;
+               // swap is done
+            }
+        }
+    }
+
+} /** End of sort_pairs () */
+
 
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
