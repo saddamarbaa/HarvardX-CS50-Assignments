@@ -33,6 +33,7 @@ void add_pairs(void);
 void sort_pairs(void);
 void lock_pairs(void);
 void print_winner(void);
+bool is_Cycles(int,int);
 
 int main(int argc, string argv[]) /* the river Code */
 {
@@ -196,11 +197,42 @@ void sort_pairs(void)
 
 } /** End of sort_pairs () */
 
+bool is_Cycles(int a, int b )
+{
+    if(locked[a][b] == true)
+    {
+        /* base case */
+        return true;
+    }
+     for (int i = 0; i < candidate_count; i++)
+       {
+           if(locked[i][a] == true)
+           { /* Recursive case */
+               return is_Cycles(i ,b);
+           }
+
+       }
+
+
+
+
+   /* reach this line return false */
+   return false;
+}
 
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
-    // TODO
+    // Clear graph of locked in pairs
+    for (int i = 0; i < candidate_count; i++)
+    {
+        if(!is_Cycles(pairs[i].winner, pairs[i].loser))
+        {
+            locked[pairs[i].winner][ pairs[i].loser] = true;
+        }
+
+    }
+
     return;
 }
 
