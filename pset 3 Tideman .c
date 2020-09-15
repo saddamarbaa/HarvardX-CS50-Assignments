@@ -1,17 +1,35 @@
+/**
+    [PROGRAM] :  Tideman(“Ranked Pairs(Condorcet winner election))
+    [AUTHOR]  :  Saddam Arbaa
+    [Email]   :  <saddamarbaas@gmail.com>
+
+    CS50X 2020 Problem Set 3 Tideman Implementation
+    Tideman is a program that Simulate Tideman Election
+    also known as “ranked pairs.
+
+    Link to the Week 3 lecture
+    CS50 2019 - Lecture 3 - Algorithms
+    https://youtu.be/fykrlqbV9wM
+    Link to the  Problem Set
+    https://cs50.harvard.edu/x/2020/psets/3/tideman/#:~:text=check50%20cs50/problems/2020/x/tideman*/
+
 #include <stdio.h>
 #include <string.h>  /* include string.h Header file */
 #include <cs50.h>    /* include cs50.h  Header file */
 
-// Max number of candidates
+// Max number of candidates in the election.
 #define MAX 9
 
-// preferences[i][j] is number of voters who prefer i over j
+/* preferences[i][j] is number of voters who prefer i over j
+ (preferences array Global declaration ) */
 int preferences[MAX][MAX];
 
-// locked[i][j] means i is locked in over j
+/* locked[i][j] means i is locked in over j
+  (locked Array Global declaration ) */
 bool locked[MAX][MAX];
 
-// Each pair has a winner, loser
+/* Struct to represent pairs
+  Each pair has a winner, loser */
 typedef struct
 {
     int winner;
@@ -19,13 +37,19 @@ typedef struct
 }
 pair;
 
-// Array of candidates
+// Array of candidates Global declaration
 string candidates[MAX];
+
+// Array of pairs Global declaration
 pair pairs[MAX * (MAX - 1) / 2];
 
+/* pair_count variable Global declaration */
 int pair_count;
+
+/* Number of candidates Global declaration */
 int candidate_count;
 
+/* blow are the Functions prototypes */
 // Function prototypes
 bool vote(int rank, string name, int ranks[]);
 void record_preferences(int ranks[]);
@@ -41,15 +65,16 @@ int main(int argc, string argv[]) /* the river Code */
     if (argc < 2)
     {
         printf("Usage: tideman [candidate ...]\n");
-        return 1;
+        return 1; // signal to operating system that program not successes
     }
 
     // Populate array of candidates
     candidate_count = argc - 1;
+
     if (candidate_count > MAX)
     {
         printf("Maximum number of candidates is %i\n", MAX);
-        return 2;
+        return 2; // signal to operating system that program not successes
     }
     for (int i = 0; i < candidate_count; i++)
     {
@@ -61,11 +86,12 @@ int main(int argc, string argv[]) /* the river Code */
     {
         for (int j = 0; j < candidate_count; j++)
         {
-            locked[i][j] = false;
+            locked[i][j] = false; // initialize locked array to false
         }
     }
 
-    pair_count = 0;
+    pair_count = 0; // initialize pair count to zero
+    // number of voters
     int voter_count = get_int("Number of voters: ");
 
     // Query for votes
@@ -82,7 +108,7 @@ int main(int argc, string argv[]) /* the river Code */
             if (!vote(j, name, ranks)) // call vote() function
             {
                 printf("Invalid vote.\n");
-                return 3;
+                return 3; // signal to operating system that program not successes
             }
         }
         record_preferences(ranks); // record_preferences() function
@@ -90,14 +116,16 @@ int main(int argc, string argv[]) /* the river Code */
         printf("\n");
     }
 
+    // call the flowing functions
     add_pairs();
     sort_pairs();
     lock_pairs();
     print_winner();
 
-    return 0;// signal to operating system everything works fine
+    return 0; // signal to operating system everything works fine
 
 } /** End of main function */
+
 
 // Update ranks given a new vote
 bool vote(int rank, string name, int ranks[])
@@ -105,7 +133,7 @@ bool vote(int rank, string name, int ranks[])
     // iterate throw the candidate array
     for (int i = 0; i < candidate_count; i++)
     {
-       // first check if the given name match
+        // first check if the given name match
         // one of the candidates name
         if (strcmp(name, candidates[i]) == 0)
         {
@@ -126,7 +154,6 @@ bool vote(int rank, string name, int ranks[])
 // Update preferences given one voter's ranks
 void record_preferences(int ranks[])
 {
-
     // iterate throw the candidate array
     for (int i = 0; i < candidate_count; i++)
     {
@@ -147,23 +174,24 @@ void add_pairs(void)
     {
         for (int j = i + 1; j < candidate_count; j++)
         {
-           if(preferences[i][j] > preferences[j][i])
-           {
-               /* add pairs of candidates */
-               pairs[pair_count].winner = i;
-               pairs[pair_count].loser = j;
-               pair_count++; /* increment pair count by one */
-           }
-           else if(preferences[i][j] < preferences[j][i])
-           {
-               /* add pairs of candidates */
-               pairs[pair_count].winner = j;
-               pairs[pair_count].loser = i;
-               pair_count++; /* increment pair count by one */
-           }
-           /* in else cases mean
-           (preferences[i][j] == preferences[j][i])
-            in that case do nothing */
+            if (preferences[i][j] > preferences[j][i])
+            {
+                /* add pairs of candidates */
+                pairs[pair_count].winner = i;
+                pairs[pair_count].loser = j;
+                pair_count++; /* increment pair count by one */
+            }
+            else if (preferences[i][j] < preferences[j][i])
+            {
+                /* add pairs of candidates */
+                pairs[pair_count].winner = j;
+                pairs[pair_count].loser = i;
+                pair_count++; /* increment pair count by one */
+            }
+
+            /* in else cases mean
+              (preferences[i][j] == preferences[j][i])
+             in that case do nothing */
         }
     }
     return;
@@ -182,7 +210,7 @@ void sort_pairs(void)
         // inner loop for comparison
         for (j = i + 1; j < pair_count; j++)
         {
-            if(preferences[pairs[i].winner][pairs[i].loser] < preferences[pairs[j].winner][pairs[j].loser])
+            if (preferences[pairs[i].winner][pairs[i].loser] < preferences[pairs[j].winner][pairs[j].loser])
             {
                 // if so swap them
                 int temp_winner = pairs[j].winner;
@@ -191,7 +219,7 @@ void sort_pairs(void)
                 pairs[j].loser = pairs[i].loser;
                 pairs[i].winner = temp_winner;
                 pairs[i].loser = temp_loser;
-               // swap is done
+                // swap is done
             }
         }
     }
@@ -206,7 +234,7 @@ void lock_pairs(void)
     for (int i = 0; i < pair_count; i++)
     {
         // call is_Cycles() function and(pairs[i].winner, pairs[i].loser
-        if(!is_Cycle(pairs[i].winner, pairs[i].loser))
+        if (!is_Cycle(pairs[i].winner, pairs[i].loser))
         {
             // by we are sure have no cycle just add the ith pairs to graph
             locked[pairs[i].winner][ pairs[i].loser] = true;
@@ -222,24 +250,25 @@ void print_winner(void)
 {
     /* AM assuming there will not be more than one source. */
 
-    bool source; // source varible declarations (flag)
+    bool source; // source (flag)variable declarations
     // iterate throw the locked array
     for (int i = 0; i < candidate_count; i++)
     {
         /* initialize flag(source) to false */
         source = false;
         for (int j = 0; j < candidate_count; j++)
-        {   /* each time found source set flag to true */
-            if(locked[i][j] == true)
+        {
+            // each time found source set flag to true //
+            if (locked[i][j] == true)
             {
                 source = true;  // source been found  set source to true
                 break;
             }
 
         }
-        if(source == true)
+        if (source == true)
         {
-             printf("%s\n",candidates[i]); // print the winners
+            printf("%s\n", candidates[i]); // print the winners
         }
     }
     return;
@@ -253,19 +282,19 @@ void print_winner(void)
 
 bool is_Cycle(int a, int b)
 {
-    if(locked[b][a] == true) /* base case */
+    if (locked[b][a] == true) /* base case */
     {
         return true;  /* we have Cycle*/
     }
-    // iterate throw pairs array
+    // iterate throw locked array
     for (int i = 0; i < pair_count; i++)
     {
-        if(locked[i][a] == true) /* Recursive case */
+        if (locked[i][a] == true) /* Recursive case */
         {
             return is_Cycle(i, b);
         }
     }
-    /* reach this line return false */
+    /* if reach this line return false */
     return false; /* no Cycle */
 
 } /** End of is_Cycle() */
