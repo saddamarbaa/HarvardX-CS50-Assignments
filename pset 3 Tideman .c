@@ -33,7 +33,7 @@ void add_pairs(void);
 void sort_pairs(void);
 void lock_pairs(void);
 void print_winner(void);
-bool is_Cycles(int,int);
+bool is_Cycle(int, int);
 
 int main(int argc, string argv[]) /* the river Code */
 {
@@ -135,7 +135,7 @@ void record_preferences(int ranks[])
             preferences[ranks[i]][ranks[j]]++; // Update preferences
         }
     }
-
+    return;
 } /** End of record_preferences() */
 
 
@@ -166,6 +166,7 @@ void add_pairs(void)
             in that case do nothing */
         }
     }
+    return;
 }/** End of add_pairs () */
 
 
@@ -194,47 +195,27 @@ void sort_pairs(void)
             }
         }
     }
-
+    return;
 } /** End of sort_pairs () */
 
-bool is_Cycles(int a, int b )
-{
-    if(locked[a][b] == true)
-    {
-        /* base case */
-        return true;
-    }
-     for (int i = 0; i < candidate_count; i++)
-       {
-           if(locked[i][a] == true)
-           { /* Recursive case */
-               return is_Cycles(i ,b);
-           }
-
-       }
-
-
-
-
-   /* reach this line return false */
-   return false;
-}
 
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
-    // Clear graph of locked in pairs
-    for (int i = 0; i < candidate_count; i++)
+    // iterate throw the pairs array
+    for (int i = 0; i < pair_count; i++)
     {
-        if(!is_Cycles(pairs[i].winner, pairs[i].loser))
+        // call is_Cycles() function and(pairs[i].winner, pairs[i].loser
+        if(!is_Cycle(pairs[i].winner, pairs[i].loser))
         {
+            // by we are sure have no cycle just add the ith pairs to graph
             locked[pairs[i].winner][ pairs[i].loser] = true;
         }
-
     }
-
     return;
-}
+
+} /** End of lock_pairs () */
+
 
 // Print the winner of the election
 void print_winner(void)
@@ -243,3 +224,27 @@ void print_winner(void)
     return;
 }
 
+
+/**
+  is_Cycle() is recursive helper function to check if their
+  is Cycle between vertices a and vertices b in the graph
+   ( a is initialized to winner and b is initialized to loser) */
+
+bool is_Cycle(int a, int b)
+{
+    if(locked[b][a] == true) /* base case */
+    {
+        return true;  /* we have Cycle*/
+    }
+    // iterate throw pairs array
+    for (int i = 0; i < pair_count; i++)
+    {
+        if(locked[i][a] == true) /* Recursive case */
+        {
+            return is_Cycle(i, b);
+        }
+    }
+    /* reach this line return false */
+    return false; /* no Cycle */
+
+} /** End of is_Cycle() */
