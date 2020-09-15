@@ -220,9 +220,30 @@ void lock_pairs(void)
 // Print the winner of the election
 void print_winner(void)
 {
-    // TODO
+    /* AM assuming there will not be more than one source. */
+
+    bool source; // source varible declarations (flag)
+    // iterate throw the locked array
+    for (int i = 0; i < candidate_count; i++)
+    {
+        /* initialize flag(source) to false */
+        source = false;
+        for (int j = 0; j < candidate_count; j++)
+        {   /* each time found source set flag to true */
+            if(locked[i][j] == true)
+            {
+                source = true;  // source been found  set source to true
+                break;
+            }
+
+        }
+        if(source == true)
+        {
+             printf("%s\n",candidates[i]); // print the winners
+        }
+    }
     return;
-}
+} /** End of print_winner */
 
 
 /**
