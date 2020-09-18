@@ -1,4 +1,3 @@
-
 // Implements a dictionary's functionality
 
 #include <stdbool.h>
@@ -22,11 +21,12 @@ of Linked List at an index of Hash Table
 (head node,also called first node) */
 node* Head = NULL;
 
-// Number of buckets in hash table
-const unsigned int N = 1;
+/* Global define of Hash Table maximum
+  capacity and initialization to 997(997 is prime number) */
+#define HASHTABLE_SIZE  997
 
 /* Global array(hash table) declaration*/
-node *table[N];
+node *table[HASHTABLE_SIZE];
 
 /* Global declaration of Hash Table size and initialization
   to zero (number of elements present in Hash Table */
@@ -44,11 +44,18 @@ bool check(const char *word)
 }
 
 // Hashes word to a number
+// Hashes the word (hash function posted on reddit by delipity)
+// so all the credit to  delipity
 unsigned int hash(const char *word)
 {
-    // TODO
-    return 0;
-}
+    unsigned int hash = 0;
+    for (int i = 0, n = strlen(word); i < n; i++)
+    {
+        hash = (hash << 2) ^ word[i];
+    }
+    return hash % HASHTABLE_SIZE;
+    
+} /** END of hash() */
 
 
 // Loads dictionary into memory, returning true if successful else false
@@ -72,7 +79,7 @@ bool load(const char *dictionary)
     second step(scan dictionary word by word)
     iterate over the given dictionary file and read one
     word each time until reach the end of file*/
-    while(fscanf(file, "%s", word) != EOF)
+    while (fscanf(file, "%s", word) != EOF)
     {
         // next step is to create new node
         // allocate memory dynamically for node using malloc C function
@@ -144,7 +151,7 @@ bool unload(void)
 void initialize_table()
 {
     /* loop and initialize hash table Head and tail to NULL */
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < HASHTABLE_SIZE; i++)
     {
         table[i] = NULL;
     }
