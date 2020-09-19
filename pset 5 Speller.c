@@ -5,7 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>  /* include string.h Header file */
-#include <cs50.h>    /* include cs50.h  Header file */
+#include <strings.h> /* include strings.h Header file */
+#include <ctype.h>  /* include ctype.h Header file */
 
 // Represents a node in a hash table
 typedef struct node
@@ -23,7 +24,7 @@ node* Head = NULL;
 
 /* Global define of Hash Table maximum
   capacity and initialization to 997(997 is prime number) */
-#define HASHTABLE_SIZE  997
+#define HASHTABLE_SIZE 997
 
 /* Global array(hash table) declaration*/
 node *table[HASHTABLE_SIZE];
@@ -32,16 +33,49 @@ node *table[HASHTABLE_SIZE];
   to zero (number of elements present in Hash Table */
 int word_count = 0;
 
-// function to create hash table and initialize to zero
-void initialize_table(void);
-
 
 // Returns true if word is in dictionary else false
 bool check(const char *word)
 {
-    // TODO
+    // creating char array
+    int len = strlen(word);
+    char copy_word[LENGTH + 1];
+
+    /* iterate over the given word and convert to lower cases */
+    for (int i = 0; i < len; i++)
+    {
+        copy_word[i] = tolower(word[i]);
+    }
+    // Adds null terminator to end string
+    copy_word[len] = '\0';
+    
+    // get the hash code
+    int index = hash(copy_word); // call hash() function
+
+    // Initializes cursor to point to given index by hashFunction
+     node* cursor = table[index];
+
+    /* while not yet reach NULL search for word in dictionary */
+    while(cursor != NULL)
+    {
+        // compute case-insensitive comparison once
+        // If strcasecmp returns true, then word has been found
+        if (strcasecmp(cursor -> word, word) == 0)
+        {
+            return true;
+        }
+        {
+            // Else word has not yet been found, move cursor to next node
+            cursor = cursor -> next;
+        }
+
+    }
+
+    // if reach this line the word not been found in dictionary so it must be misspelled just return false
     return false;
-}
+
+} /** End of check()*/
+
 
 // Hashes word to a number
 // Hashes the word (hash function posted on reddit by delipity)
@@ -54,7 +88,7 @@ unsigned int hash(const char *word)
         hash = (hash << 2) ^ word[i];
     }
     return hash % HASHTABLE_SIZE;
-    
+
 } /** END of hash() */
 
 
@@ -83,7 +117,7 @@ bool load(const char *dictionary)
     {
         // next step is to create new node
         // allocate memory dynamically for node using malloc C function
-        node* new_node = (node*) malloc(sizeof(node));
+        node* new_node = malloc(sizeof(node));
         if(new_node == NULL) /* Error handling */
         {
             printf("Error in allocating memory\n");
@@ -130,7 +164,6 @@ bool load(const char *dictionary)
 } /** End of load() */
 
 
-
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
 unsigned int size(void)
 {
@@ -138,23 +171,33 @@ unsigned int size(void)
 
 } /** End of size() */
 
+
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
-    // TODO
-    return false;
-}
-
-
-/** function To  initialize the Array(hash tables) */
-
-void initialize_table()
-{
-    /* loop and initialize hash table Head and tail to NULL */
-    for (int i = 0; i < HASHTABLE_SIZE; i++)
+    node* temp; // local variables of type node declaration */
+    
+    /* iterate over hash table */
+    for(int i = 0; i < HASHTABLE_SIZE; i++)
     {
-        table[i] = NULL;
-    }
+        // Initializes temp to point to  the head node at i index
+        temp = Head = table[i];
 
-}  /** End of initialize_Array */
+         /*
+         while not yet reach NULL iterate over the linked  list
+         and delete word one by one */
+         while(Head != NULL)
+         {
+             // temp is only to uses in free memory process
+             temp = Head;         // save Head in temp
+             Head = Head -> next; // move Head to next node
+             free(temp);         // now Delete temp using free() C function
+             temp = Head;        // save Head in temp
+         }
+    }
+    free(temp);
+    free(Head);         // now Delete temp using free() C function
+    return true; // if reach this line  return true
+
+} /** End of unload() */
 
