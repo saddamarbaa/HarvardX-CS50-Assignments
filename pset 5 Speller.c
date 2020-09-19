@@ -20,7 +20,7 @@ node;
 head pointer point to the first element
 of Linked List at an index of Hash Table
 (head node,also called first node) */
-node* Head = NULL;
+node *Head = NULL;
 
 /* Global define of Hash Table maximum
   capacity and initialization to 997(997 is prime number) */
@@ -30,16 +30,15 @@ node* Head = NULL;
 node *table[HASHTABLE_SIZE];
 
 /* Global declaration of Hash Table size and initialization
-  to zero (number of elements present in Hash Table */
+  to zero (number of word present in Hash Table */
 int word_count = 0;
-
 
 // Returns true if word is in dictionary else false
 bool check(const char *word)
 {
-    // creating char array
-    int len = strlen(word);
-    char copy_word[LENGTH + 1];
+
+    int len = strlen(word);     // calculate the length
+    char copy_word[LENGTH + 1];  // creating char array
 
     /* iterate over the given word and convert to lower cases */
     for (int i = 0; i < len; i++)
@@ -48,15 +47,15 @@ bool check(const char *word)
     }
     // Adds null terminator to end string
     copy_word[len] = '\0';
-    
+
     // get the hash code
-    int index = hash(copy_word); // call hash() function
+    unsigned int index = hash(copy_word); // call hash() function
 
     // Initializes cursor to point to given index by hashFunction
-     node* cursor = table[index];
+    node *cursor = table[index];
 
     /* while not yet reach NULL search for word in dictionary */
-    while(cursor != NULL)
+    while (cursor != NULL)
     {
         // compute case-insensitive comparison once
         // If strcasecmp returns true, then word has been found
@@ -68,9 +67,7 @@ bool check(const char *word)
             // Else word has not yet been found, move cursor to next node
             cursor = cursor -> next;
         }
-
     }
-
     // if reach this line the word not been found in dictionary so it must be misspelled just return false
     return false;
 
@@ -105,7 +102,6 @@ bool load(const char *dictionary)
         unload();
         return false; // signal that program not successes
     }
-
     // creating char array to store data of file
     char word[LENGTH + 1];
 
@@ -117,14 +113,13 @@ bool load(const char *dictionary)
     {
         // next step is to create new node
         // allocate memory dynamically for node using malloc C function
-        node* new_node = malloc(sizeof(node));
-        if(new_node == NULL) /* Error handling */
+        node *new_node = malloc(sizeof(node));
+        if (new_node == NULL) /* Error handling */
         {
             printf("Error in allocating memory\n");
             unload();
             return false; // signal that program not successes
         }
-
         /* add information to node */
         strcpy(new_node -> word, word); // Copies word into node if malloc succeeds
         new_node -> next = NULL;        // next is NULL for now
@@ -132,17 +127,16 @@ bool load(const char *dictionary)
         /* next step is to insert the node into hash table */
 
         // get the hash code
-	    unsigned int index = hash(new_node -> word); // call hash() function
+        unsigned int index = hash(new_node -> word); // call hash() function
 
         // Initializes head to point to given index by hashFunction
         Head = table[index];
 
 	    /** Handle the corner cases */
-
-	    if(Head == NULL) /* check if list is empty then this node is the first node */
+        if (Head == NULL) /* check if list is empty then this node is the first node */
         {
             /** link changes */
-            table[index] = new_node; // insert first node in list
+            table[index] = new_node;  // insert first node in list
             word_count++;              /* increment hash size by one*/
         }
         else
@@ -155,10 +149,9 @@ bool load(const char *dictionary)
             Head = new_node;            // left side connection second
             word_count++;              /* increment hash size by one */
         }
-        printf("Key :(%s) been inserted \n",new_node -> word); // inform user the word is been inserted
     }
 
-    fclose(file);  // close files
+    fclose(file);  // close file
     return true; // signal that program  successes
 
 } /** End of load() */
@@ -175,28 +168,30 @@ unsigned int size(void)
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
-    node* temp; // local variables of type node declaration */
-    
+    node *temp; // local variables of type node declaration */
+
     /* iterate over hash table */
-    for(int i = 0; i < HASHTABLE_SIZE; i++)
+    for (int i = 0; i < HASHTABLE_SIZE; i++)
     {
-        // Initializes temp to point to  the head node at i index
+        // Initializes temp to point to the head node at i index
         temp = Head = table[i];
 
-         /*
-         while not yet reach NULL iterate over the linked  list
-         and delete word one by one */
-         while(Head != NULL)
-         {
-             // temp is only to uses in free memory process
-             temp = Head;         // save Head in temp
-             Head = Head -> next; // move Head to next node
-             free(temp);         // now Delete temp using free() C function
-             temp = Head;        // save Head in temp
-         }
+        /*
+        while not yet reach NULL iterate over the linked  list
+        and delete word one by one */
+        while (Head != NULL)
+        {
+            // temp is only to uses in free memory process
+            temp = Head;         // save Head in temp
+            Head = Head -> next; // move Head to next node
+            free(temp);         // now Delete temp using free() C function
+            temp = Head;        // save Head in temp
+        }
     }
+    // now Delete temp  and Head
     free(temp);
-    free(Head);         // now Delete temp using free() C function
+    free(Head);
+
     return true; // if reach this line  return true
 
 } /** End of unload() */
