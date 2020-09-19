@@ -30,7 +30,7 @@ node *Head = NULL;
 node *table[HASHTABLE_SIZE];
 
 /* Global declaration of Hash Table size and initialization
-  to zero (number of word present in Hash Table */
+  to zero (number of word present in Hash Table  */
 int word_count = 0;
 
 // Returns true if word is in dictionary else false
