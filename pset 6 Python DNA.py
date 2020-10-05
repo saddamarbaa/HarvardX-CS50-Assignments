@@ -1,35 +1,40 @@
-
-
-# importing argv and exit modules to access command-line
-# arguments and  Exits with explicit value
-from sys import argv, exit
+# importing sys to access command-line arguments and Exits with explicit value
+import sys
+# importing csv module for reading CSV files into memory,
+import csv
 
 # define main function
 def main():
+
     # checking if user Enter only 2 command-line argument
-    if len(argv) != 3:
-        print("incorrect number of command-line arguments")
-        print("Usage: python dna.py data.csv sequence.txt")
+    if len(sys.argv) != 3:
         # signal to operating system that program not successes
-        exit(1)
+        print("incorrect number of command-line arguments")
+        sys.exit("Usage: python dna.py data.csv sequence.txt")
 
-    # a CSV file that contain the STR counts for a list of individuals
-    STR_counts = argv[1]
+    # Open(data.csv) CSV file that contain the STR counts for a list of individuals
+    DNA_database = open(sys.argv[1])
+    # Read the DNA_database file contents into Memory
+    data = csv.DictReader(DNA_database)
 
-    # a text file that contain the DNA sequence to identify
-    DNA_sequence = argv[2]
+    # now Open(sequence.txt) text file that contain the DNA sequence to identify
+    # and read it contents into Memory(DNA_sequence)
+    with open(sys.argv[2]) as file:
+        DNA_sequence =   file.read()
 
-    #print(f"STR_counts is  {STR_counts}")
-    #print(f"DNA_sequence   {DNA_sequence}")
+    # for testing
+    # print(DNA_sequence)
 
 
 
+
+    # if reach this line mean STR counts do not match exactly
+    # with any of the individuals in the CSV file
+    print("No match")
 
 
 
 # call main
 main()
 
-# signal to operating system everything works fine
-exit(0)
 
