@@ -1,6 +1,15 @@
 # CS50's Introduction to Computer Science
 
-I made this repository to post my solutions to CS50x 2020 programming assignments
+I made this repository for posting my code solutions to CS50s programming assignments
+while Learning CS50x 2020  :  (Introduction to Computer Science) From Harvard University on edx  
+
+https://www.edx.org/course/cs50s-introduction-to-computer-science
+
+
+
+![image](https://user-images.githubusercontent.com/51326421/100383915-6b8fc300-3051-11eb-8a22-6d766d9ea0cb.png)
+
+
 
 
 # About this course
@@ -34,18 +43,18 @@ Students who earn a satisfactory score on 9 problem sets (i.e., programming assi
 and a final project are eligible for a certificate.
 
 
-link to cs50 at harvard  :  https://cs50.harvard.edu/x/2020/
+ link to cs50  course at harvard     :  https://cs50.harvard.edu/x/2020/
 
 
-link to cs50 at edx  :  https://www.edx.org/course/cs50s-introduction-to-computer-science
+link to cs50  course at on edx       :  https://www.edx.org/course/cs50s-introduction-to-computer-science
 
 
-link to cs50 in youtube:  https://www.youtube.com/user/cs50tv
+link to cs50  course at in Youtube   :  https://www.youtube.com/user/cs50tv
 
-# CS50 Lectures 2019
+# link to CS50 Lectures 2019
 
 https://www.youtube.com/playlist?list=PLhQjrBD2T381L3iZyDTxRwOBuUt6m1FnW
 
 
-https://www.edx.org/course/cs50s-introduction-to-computer-science
+
  
