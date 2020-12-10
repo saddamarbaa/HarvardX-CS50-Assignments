@@ -11,7 +11,6 @@ https://www.edx.org/course/cs50s-introduction-to-computer-science
 
 
 
-
 # About this course
 
 CS50x, Harvard University's introduction to the intellectual 
